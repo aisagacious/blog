@@ -43,7 +43,7 @@ const Login = (props: any): any => {
           <Form.Item>
             {getFieldDecorator('username', {
               rules: [{ required: true, message: '请输入账号' }],
-              initialValue: 'admin'
+              initialValue: ''
             })(
               <Input
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -54,7 +54,7 @@ const Login = (props: any): any => {
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [{ required: true, message: '请输入密码' }],
-              initialValue: '123456'
+              initialValue: ''
             })(
               <Input
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
