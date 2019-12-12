@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { HashRouter as Router, Switch } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import routes from './router'
 
@@ -12,9 +12,7 @@ import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <Router>
-    <Switch>
-      {renderRoutes(routes.routes)}
-    </Switch>
+    {renderRoutes(routes.routes)}
   </Router>,
   document.getElementById('root') as HTMLElement
 )

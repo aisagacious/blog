@@ -157,11 +157,10 @@ body {
 .home .list li {
   display: flex;
   flex-direction: column;
-  width: 95%;
   max-height: 220px;
   padding: 20px;
   box-sizing: border-box;
-  margin: 0 auto 20px;
+  margin: 0 20px 20px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -232,11 +231,10 @@ body {
 }
 
 .details-item {
-  width: 95%;
   min-height: 100%;
   height: auto;
   padding: 20px;
-  margin: 0 auto;
+  margin: 0 20px;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 5px;

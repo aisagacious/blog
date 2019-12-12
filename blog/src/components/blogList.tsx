@@ -13,9 +13,7 @@ const BlogList = (props: any): any => {
 
   const toPage = (id: string): any => {
     props.props.history.push({
-      pathname: '/details', state: {
-        id: id
-      }
+      pathname: `/details/${id}`
     })
   }
 

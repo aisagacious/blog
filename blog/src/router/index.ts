@@ -46,7 +46,7 @@ export default {
           component: About
         },
         {
-          path: '/details',
+          path: '/details/:id',
           exact: true,
           type: true,
           component: Details
@@ -89,7 +89,7 @@ export default {
           ]
         },
         {
-          path: '/error',
+          path: '*',
           exact: true,
           type: false,
           component: Error

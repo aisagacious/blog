@@ -95,19 +95,7 @@ const Dashboard = (props: any): any => {
   // 默认跳转主页
   const initPage = (props: any): void => {
     props.location.pathname === '/' && props.history.push('/home')
-    // 处理路由找不到 返回error
-    const treeRoutes = (routes: any): string[] => {
-      return routes.reduce((a: any, b: any): string => {
-        return a.concat(Array.isArray(b.routes) ? treeRoutes(b.routes) : b.path)
-      }, [])
-    }
-    // 处理错误页面
-    const newRoutes: string[] = treeRoutes(props.route.routes)
-    // 处理url带参数问题 进行过滤
-    const path = props.location.pathname.replace(/^([^\?]*).*$/, ($all: string, $1: string): string => { return $1 })
-    if (props.location.pathname !== '/' && ![...newRoutes, '/pc'].includes(path)) {
-      props.history.push('/error')
-    }
+
   }
 
   return (

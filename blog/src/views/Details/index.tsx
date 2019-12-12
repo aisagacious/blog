@@ -9,7 +9,7 @@ const Details = (props: any): any => {
   const [blogObj, setBlogObj] = useState<any>()
 
   const queryIdBlog = useCallback((props: any): void => {
-    const params: any = props.location.state
+    const params: any = props.match.params
     if (!params) {
       props.history.push('/')
     } else {
@@ -32,7 +32,7 @@ const Details = (props: any): any => {
         >
           <PageHeader
             ghost={false}
-            onBack={() => window.history.back()}
+            onBack={() => props.history.goBack()}
             title={blogObj.title}
             subTitle=""
             extra={[
