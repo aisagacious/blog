@@ -62,9 +62,9 @@ class BlogController extends Controller {
     ctx.validate({
       id: 'string'
     }, ctx.query)
-    const id = await ctx.service.blog.queryIdBlog(ctx.query)
-    if (id) {
-      ctx.helper.success(ctx, '成功',  Object.assign({}, ctx.helper.formatConversion([id])[0], {tag: ctx.helper.formatConversion(id.tag)}))
+    const blog = await ctx.service.blog.queryIdBlog(ctx.query)
+    if (blog) {
+      ctx.helper.success(ctx, '成功',  Object.assign({}, ctx.helper.formatConversion([blog])[0]))
     } else {
       ctx.helper.fail(ctx, '失败', null)
     }

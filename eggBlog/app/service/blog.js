@@ -3,7 +3,7 @@ const Service = require('egg').Service
 const sd = require('silly-datetime')
 
 class BlogService extends Service {
-  async addBlog(params) {
+  async addBlog (params) {
     const obj = {
       title: params.title,
       content: params.content,
@@ -23,7 +23,7 @@ class BlogService extends Service {
     return result
   }
 
-  async updateBlog(params) {
+  async updateBlog (params) {
     const obj = {
       id: params.id,
       title: params.title,
@@ -45,7 +45,7 @@ class BlogService extends Service {
     return result
   }
 
-  async queryBlog(params) {
+  async queryBlog (params) {
     const obj = {
       pageNo: Number(params.pageNo),
       pageSize: Number(params.pageSize),
@@ -66,18 +66,23 @@ class BlogService extends Service {
     return result
   }
 
-  async queryIdBlog(params) {
+  async queryIdBlog (params) {
     const obj = {
       id: params.id
     }
     // 查询博客内容及标签分类
-    const idQuery = await this.app.mysql.get('article', obj)
-    const tag = await this.app.mysql.query(`select t3.tag_name,t3.tag_id from article t1 left join article_tag t2 on t1.id = t2.relation_id left join tag t3 on t2.tag_id = t3.tag_id where t1.id = ?`, [obj.id])
-    let jxTag = JSON.stringify(tag)
-    return Object.assign({}, idQuery, { tag: JSON.parse(jxTag) })
+    const result = await this.app.mysql.beginTransactionScope(async conn => {
+      const idQuery = await conn.get('article', obj)
+      const tag = await conn.query(`select t3.tag_id from article t1 left join article_tag t2 on t1.id = t2.relation_id left join tag t3 on t2.tag_id = t3.tag_id where t1.id = ?`, [obj.id])
+      let jxTag = JSON.parse(JSON.stringify(tag)).map(item => {
+        return item.tag_id
+      })
+      return Object.assign({}, idQuery, { tag: jxTag })
+    }, this.ctx)
+    return result
   }
 
-  async deleteBlog(params) {
+  async deleteBlog (params) {
     const obj = {
       id: params.id,
       del_flag: 'N',
@@ -89,7 +94,7 @@ class BlogService extends Service {
     return updateSuccess
   }
 
-  async updateReading(params) {
+  async updateReading (params) {
     const { ctx } = this
     const obj = {
       id: params.id
@@ -109,7 +114,7 @@ class BlogService extends Service {
           ctx.session.blog = saveBlogId
           return Object.assign({}, idQuery, { tag: JSON.parse(jxTag) })
         }, ctx)
-      }else {
+      } else {
         result = this.queryIdBlog(params)
       }
     } else {

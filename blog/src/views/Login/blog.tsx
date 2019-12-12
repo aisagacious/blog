@@ -32,7 +32,6 @@ const Blog = (props: any): any => {
   const [count, setCount] = useState<number>(0)
   const [visible, setVisible] = useState<any>(false)
   const [tagList, setTagList] = useState<TagRule[]>()
-  const [defaultTag, setDefaultTag] = useState<string[]>()
   const [params, setParams] = useState<Params>({
     tag: [],
     title: '',
@@ -115,10 +114,6 @@ const Blog = (props: any): any => {
   const queryIdBlog = useCallback((props: any): void => {
     http.queryIdBlog(props.location.state).then((res: any): any => {
       setParams(res.data)
-      const tags = res.data.tag.map((item: any): any => {
-        return item.tagId
-      })
-      setDefaultTag(tags)
     })
   }, [])
 
@@ -127,7 +122,7 @@ const Blog = (props: any): any => {
     queryTags()
     return () => {
     }
-  }, [queryIdBlog, props])
+  }, [])
 
   return (
     <div className="editor">
@@ -163,7 +158,8 @@ const Blog = (props: any): any => {
             mode="multiple"
             style={{ width: '100%' }}
             placeholder="请添加标签"
-            defaultValue={defaultTag}
+            key={Math.random()}
+            value={params.tag}
             onChange={tagChange}
           >
             {
