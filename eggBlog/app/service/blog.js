@@ -116,7 +116,6 @@ class BlogService extends Service {
         }, ctx)
       } else {
         result = await this.app.mysql.beginTransactionScope(async conn => {
-          await conn.query('update article set read_count=read_count+1 where id like ?', [obj.id])
           const idQuery = await conn.get('article', obj)
           const tag = await conn.query(`select t3.tag_name,t3.tag_id from article t1 left join article_tag t2 on t1.id = t2.relation_id left join tag t3 on t2.tag_id = t3.tag_id where t1.id = ?`, [obj.id])
           let jxTag = JSON.stringify(tag)
