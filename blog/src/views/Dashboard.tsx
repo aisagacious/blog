@@ -29,8 +29,7 @@ const Navigation = (props: any): any => {
   }
 
   useEffect(() => {
-    setPage(props.to.location.pathname)
-  }, [props])
+  }, [])
 
   return (
     <div className="dashboard user-select">
@@ -90,12 +89,13 @@ const Dashboard = (props: any): any => {
 
   useEffect(() => {
     initPage(props)
-  }, [props])
+  }, [])
 
   // 默认跳转主页
   const initPage = (props: any): void => {
-    props.location.pathname === '/' && props.history.push('/home')
-
+    if(window.location.pathname === '/') {
+      props.location.pathname === '/' && props.history.push('/home')
+    }
   }
 
   return (
