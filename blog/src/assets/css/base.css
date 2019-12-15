@@ -132,9 +132,13 @@ body {
 }
 
 .social-contact .put-on-file {
-  font-size: 14px;
   margin-top: 20px;
+}
+
+.social-contact .put-on-file a{
+  font-size: 14px;
   color: #9d9d9d;
+
 }
 
 /* 首页 */
@@ -150,11 +154,7 @@ body {
   display:none
 }
 
-.markdown-body {
-  min-width: 500px;
-}
-
-.home .list li {
+.home .list .li {
   display: flex;
   flex-direction: column;
   max-height: 220px;
@@ -167,13 +167,19 @@ body {
   overflow: hidden;
 }
 
+.home .list .li a {
+  pointer-events: none;
+  color: #5c6066;
+}
+
+.home .list .li hr {
+  display: none;
+}
+
 .home .list img {
   display: none;
 }
 
-.home .list a:hover, a:visited, a:link, a:active {
-  color: #5c6066!important;
-}
 
 .home .title {
   font-size: 24px;

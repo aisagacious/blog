@@ -23,7 +23,7 @@ const BlogList = (props: any): any => {
         <ul>
           {
             props.articleList && props.articleList.map((item: any, index: number): any => {
-              return <li key={index} onClick={() => toPage(item.id)}>
+              return <li className="li" key={index} onClick={() => toPage(item.id)}>
                 <p className="title">{item.title}</p>
                 <div className="content">
                   <Markdown flag={false} content={item.content}></Markdown>

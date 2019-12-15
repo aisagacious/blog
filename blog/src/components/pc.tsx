@@ -57,7 +57,7 @@ const Pc = (props: any): any => {
         <Header>
           <p onClick={() => setCollapsed(!collapsed)}>博客后台系统</p>
           <div className="user">
-            <p className="user-name" onClick={() => props.history.push('/')}>{userInfo && userInfo.name}</p>
+            <p className="user-name" onClick={() => props.history.push('/home')}>{userInfo && userInfo.name}</p>
             <Dropdown overlay={menu} placement="bottomCenter">
               <Avatar src={require('../assets/img/avatar.jpeg')} />
             </Dropdown>
