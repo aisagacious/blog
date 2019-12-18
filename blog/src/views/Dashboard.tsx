@@ -18,7 +18,7 @@ interface SideBar {
 // 侧边导航内容
 const Navigation = (props: any): any => {
   const { info, sideBar, to } = props
-  const [path, setPage] = useState<string>('/home')
+  const [path, setPage] = useState<string>(props.to.location.pathname)
 
   // 路由跳转
   const toPage = (item: SideBar): void => {
@@ -28,22 +28,25 @@ const Navigation = (props: any): any => {
     to.history.push(item.path)
   }
 
-  useEffect(() => {
-  }, [])
-
+  const toLogin = (): void => {
+    if (!/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) {
+      to.history.push('/mLogin')
+    }
+  }
+  
   return (
-    <div className="dashboard user-select">
-      <div className="avatar" onClick={() => to.history.push('/mLogin')}>
+    <div className="user-select">
+      <div className="avatar" onClick={toLogin}>
         <img src={info.avatar} alt="" />
       </div>
       <div>
-        <p className="title center">{info.title}</p>
+        <p className="user-title center">{info.title}</p>
         <p className="desc center">{info.desc}</p>
       </div>
       <div className="aside">
         <ul>
           {sideBar.map((item: SideBar, index: number): any => {
-            return <li style={{ 'color': item.path === path ? '#1890ff' : '#fff' }} key={index} onClick={() => toPage(item)}>
+            return <li style={{ 'color': item.path === (path === '/' ? '/home' : path) ? '#1890ff' : '#fff' }} key={index} onClick={() => toPage(item)}>
               {item.name}
             </li>
           })}
@@ -60,6 +63,8 @@ const Dashboard = (props: any): any => {
     avatar: require('../assets/img/avatar.jpeg'),
     desc: '人生两大悲剧：一是万念俱灰，一是踌躇满志'
   })
+  const [foldFlag, setFlodFlag] = useState<boolean>(true)
+  const isFlod: boolean = /(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)
   const [sideBar] = useState<SideBar[]>([
     {
       name: '首页',
@@ -89,22 +94,28 @@ const Dashboard = (props: any): any => {
 
   useEffect(() => {
     initPage(props)
+    isFlod && setFlodFlag(!foldFlag)
   }, [])
 
   // 默认跳转主页
   const initPage = (props: any): void => {
-    if(window.location.pathname === '/') {
+    if (window.location.pathname === '/') {
       props.location.pathname === '/' && props.history.push('/home')
     }
   }
 
   return (
-    <Layout>
-      <Sider width={230} style={{ 'display': (accessRights.indexOf(props.location.pathname) !== -1) ? 'inherit' : 'none' }}>
-        <Navigation info={info} sideBar={sideBar} to={props} />
-        <div className="social-contact">
-          <p><a href="https://github.com/aisagacious" target="_slef"><Icon type="github" /></a></p>
-          <p className="put-on-file"><a href="http://www.beian.miit.gov.cn/">蜀ICP备17026786号-1</a></p>
+    <Layout className="dashboard">
+      <Sider width={foldFlag ? '200px' : '40px'} style={{ 'display': (accessRights.indexOf(props.location.pathname) !== -1) ? 'inherit' : 'none' }}>
+        <div className="icon-fold" style={{ 'display': isFlod ? 'inherit' : 'none' }}>
+          <Icon type={foldFlag ? 'menu-fold' : 'menu-unfold'} onClick={() => setFlodFlag(!foldFlag)} />
+        </div>
+        <div style={{ 'display': foldFlag ? 'inherit' : 'none' }}>
+          <Navigation info={info} sideBar={sideBar} to={props} />
+          <div className="social-contact">
+            <p><a href="https://github.com/aisagacious" target="_slef"><Icon type="github" /></a></p>
+            <p className="put-on-file"><a href="http://www.beian.miit.gov.cn/">蜀ICP备17026786号-1</a></p>
+          </div>
         </div>
       </Sider>
       <Layout>

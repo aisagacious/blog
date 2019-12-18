@@ -50,7 +50,7 @@ const Home = (props: any): any => {
 
   const backTop = (): void => {
     // 使用平滑效果
-    homeRef.current.scrollTo({
+    homeRef && homeRef.current.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
@@ -65,7 +65,7 @@ const Home = (props: any): any => {
       queryBlog(search)
     }
     // 使用防抖处理 避免浏览器卡顿
-    homeRef.current.addEventListener('scroll', debounce(onScroll, 100))
+    homeRef && homeRef.current.addEventListener('scroll', debounce(onScroll, 100))
     return () => {
       homeRef.current.removeEventListener('scroll', onScroll)
     }

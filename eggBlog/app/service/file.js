@@ -43,11 +43,11 @@ class FileService extends Service {
       //异步把文件流 写入
       await awaitWriteStream(stream.pipe(writeStream))
       const sourceImg = images(target)
-      if (category !== 'avatar') { // 如果上传不是头像 则添加水印
-        images(sourceImg).draw(images(website), sourceImg.width() - website.width() - 1, sourceImg.height() - website.height() - 5).save(target, {               //保存当前图像至srcImg，图像质量100
-          quality: 80
-        })
-      }
+      // if (category !== 'avatar') { // 如果上传不是头像 则添加水印
+      //   images(sourceImg).draw(images(website), sourceImg.width() - website.width() - 1, sourceImg.height() - website.height() - 5).save(target, {               //保存当前图像至srcImg，图像质量100
+      //     quality: 80
+      //   })
+      // }
     } catch (err) {
       //如果出现错误，关闭管道
       await sendToWormhole(stream)
