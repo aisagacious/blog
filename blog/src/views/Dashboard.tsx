@@ -99,9 +99,9 @@ const Dashboard = (props: any): any => {
 
   // 默认跳转主页
   const initPage = (props: any): void => {
-    if (window.location.pathname === '/') {
+    // if (window.location.pathname === '/') {
       props.location.pathname === '/' && props.history.push('/home')
-    }
+    // }
   }
 
   return (
